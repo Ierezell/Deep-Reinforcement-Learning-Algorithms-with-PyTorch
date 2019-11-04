@@ -1,0 +1,63 @@
+diff --git a/results/Bit_Flipping.py b/results/Bit_Flipping.py
+index 0480041..905fa11 100644
+--- a/results/Bit_Flipping.py
++++ b/results/Bit_Flipping.py
+@@ -1,13 +1,13 @@
+ from gym.wrappers import FlattenDictWrapper
+ from agents.DQN_agents.DQN_HER import DQN_HER
+-from environments.Bit_Flipping_Environment import Bit_Flipping_Environment
++from environments.Face import FaceEnvironement
+ from agents.Trainer import Trainer
+ from utilities.data_structures.Config import Config
+ from agents.DQN_agents.DQN import DQN
+ 
+ config = Config()
+ config.seed = 1
+-config.environment = Bit_Flipping_Environment(14)
++config.environment = FaceEnvironement(14)
+ config.num_episodes_to_run = 4500
+ config.file_to_save_data_results = None #"Data_and_Graphs/Bit_Flipping_Results_Data.pkl"
+ config.file_to_save_results_graph = None #"Data_and_Graphs/Bit_Flipping_Results_Graph.png"
+@@ -46,5 +46,3 @@ if __name__== '__main__':
+     AGENTS = [DQN_HER, DQN]
+     trainer = Trainer(config, AGENTS)
+     trainer.run_games_for_agents()
+-
+-
+diff --git a/results/Four_Rooms.py b/results/Four_Rooms.py
+index 052a5e4..3eca4bf 100644
+--- a/results/Four_Rooms.py
++++ b/results/Four_Rooms.py
+@@ -13,7 +13,8 @@ num_possible_states = (height * width) ** (1 + 1*random_goal_place)
+ embedding_dimensions = [[num_possible_states, 20]]
+ print("Num possible states ", num_possible_states)
+ 
+-config.environment = Four_Rooms_Environment(height, width, stochastic_actions_probability=0.0, random_start_user_place=True, random_goal_place=random_goal_place)
++config.environment = Four_Rooms_Environment(
++    height, width, stochastic_actions_probability=0.0, random_start_user_place=True, random_goal_place=random_goal_place)
+ 
+ config.num_episodes_to_run = 1000
+ config.file_to_save_data_results = "Data_and_Graphs/Four_Rooms.pkl"
+@@ -23,7 +24,7 @@ config.visualise_individual_results = False
+ config.visualise_overall_agent_results = True
+ config.standard_deviation_results = 1.0
+ config.runs_per_agent = 3
+-config.use_GPU = False
++config.use_GPU = True
+ config.overwrite_existing_results_file = False
+ config.randomise_random_seed = True
+ config.save_model = False
+@@ -151,11 +152,8 @@ config.hyperparameters = {
+ 
+ }
+ 
+-if __name__== '__main__':
++if __name__ == '__main__':
+ 
+-
+-    AGENTS = [DDQN] #DIAYN] # A3C] #SNN_HRL] #, DDQN]
++    AGENTS = [DDQN]  # DIAYN] # A3C] #SNN_HRL] #, DDQN]
+     trainer = Trainer(config, AGENTS)
+     trainer.run_games_for_agents()
+-
+-

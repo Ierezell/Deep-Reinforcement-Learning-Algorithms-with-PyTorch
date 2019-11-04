@@ -1,0 +1,25 @@
+{
+    "root": "/mnt/Documents/Projets/Deep-Reinforcement-Learning-Algorithms-with-PyTorch",
+    "program": "results/FaceDiscreete.py",
+    "git": {
+        "remote": "git@github.com:Ierezell/Deep-Reinforcement-Learning-Algorithms-with-PyTorch.git",
+        "commit": "f745a154e9f8ecb6119a86826969f50e57a6e5e7"
+    },
+    "email": "pierre.snell.1@ulaval.ca",
+    "startedAt": "2019-10-31T20:05:27.394737",
+    "host": "ArchPierre",
+    "username": "pedro",
+    "executable": "/usr/bin/python",
+    "os": "Linux-5.3.7-arch1-2-ARCH-x86_64-with-arch-Arch-Linux",
+    "python": "3.7.4",
+    "gpu": "GeForce GTX 1050 Ti with Max-Q Design",
+    "gpu_count": 1,
+    "cpu_count": 12,
+    "args": [],
+    "state": "failed",
+    "jobType": null,
+    "mode": "run",
+    "project": "papier_few_shot",
+    "heartbeatAt": "2019-10-31T20:05:29.057495",
+    "exitcode": 1
+}
