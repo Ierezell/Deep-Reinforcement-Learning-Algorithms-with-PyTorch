@@ -2,6 +2,8 @@ from settings import LATENT_SIZE, BATCH_SIZE, CONCAT, DEVICE, HALF
 from torch.nn.utils import spectral_norm
 from torch import nn
 import torch
+from torchvision import transforms
+
 import numpy as np
 from utils import load_layers
 
@@ -28,6 +30,7 @@ class Embedder(nn.Module):
         self.attention = Attention(64)
         self.avgPool = torch.nn.AvgPool2d(7)
         self.relu = nn.SELU()
+        self.sigmoid = nn.Sigmoid()
 
     def forward(self, x):  # b, 12, 224, 224
         temp = torch.zeros((BATCH_SIZE, LATENT_SIZE),
@@ -79,7 +82,7 @@ class Embedder(nn.Module):
             layerUp0 = torch.add(out, layerUp0)
             out = self.avgPool(out).squeeze()  # b,512
             # print("out  ", out.size())
-            out = self.relu(out)
+            out = self.sigmoid(out)
             temp = torch.add(out, temp)
 
         context = torch.div(temp, (x.size(1) // 3))
@@ -252,7 +255,7 @@ class Generator(nn.Module):
         nb_params = self.ResUp5.params
         x = self.ResUp5(x, pWeights.narrow(-1, i, nb_params),
                         b=pBias.narrow(-1, i, nb_params))
-        x = self.tanh(x)
+        x = self.sigmoid(x)
         i += nb_params
         # print("ResUp5", x.size())
 

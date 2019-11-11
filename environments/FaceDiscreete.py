@@ -15,6 +15,8 @@ import gym
 from gym import spaces
 from gym.utils import seeding
 
+plt.ion()
+
 
 class FaceEnvironementDiscreete(gym.Env):
     environment_name = "FaceEnv"
@@ -30,7 +32,7 @@ class FaceEnvironementDiscreete(gym.Env):
 
         (self.embedder,
          self.generator,
-         self.discriminator) = load_models(1)
+         self.discriminator) = load_models(3000)
         self.embedder = self.embedder.eval()
         self.generator = self.generator.eval()
         self.discriminator = self.discriminator.eval()
@@ -73,7 +75,8 @@ class FaceEnvironementDiscreete(gym.Env):
         self.iterations = 0
         self.episodes += 1
         self.synth_im = self.contexts.narrow(1, 0, 3)
-        synth_im = self.synth_im[0].cpu().permute(1, 2, 0).numpy()
+        synth_im = self.synth_im.squeeze().cpu().permute(1, 2, 0).numpy()
+        synth_im -= synth_im.min()
 
         self.axes[0, 0].clear()
         self.axes[0, 0].imshow(synth_im/synth_im.max())

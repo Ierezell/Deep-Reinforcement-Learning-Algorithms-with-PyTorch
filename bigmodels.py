@@ -52,6 +52,7 @@ class BigEmbedder(nn.Module):
             self.FcWeights = spectral_norm(nn.Linear(LATENT_SIZE, 13390))
             self.FcBias = spectral_norm(nn.Linear(LATENT_SIZE, 13390))
         self.relu = nn.SELU()
+        self.sigmoid = nn.Sigmoid()
         self.avgPool = nn.AvgPool2d(kernel_size=7)
 
     def forward(self, x):  # b, 12, 224, 224
@@ -119,7 +120,7 @@ class BigEmbedder(nn.Module):
             # print("OUT  ", out.size())
 
             out = self.avgPool(out).squeeze()
-            out = self.relu(out)
+            out = self.sigmoid(out)
 
             temp = torch.add(out, temp)
 
@@ -204,7 +205,7 @@ class BigGenerator(nn.Module):
         self.Res8 = ResidualBlockUp(3, 3)
 
         self.relu = nn.SELU()
-        self.tanh = nn.Tanh()
+        self.sigmoid = nn.Sigmoid()
 
     def forward(self, img, pWeights, pBias, layersUp):
         """
@@ -408,7 +409,7 @@ class BigGenerator(nn.Module):
         nb_params = self.Res8.params
         x = self.Res8(x, w=pWeights.narrow(-1, i, nb_params),
                       b=pBias.narrow(-1, i, nb_params))
-        x = self.tanh(x)
+        x = self.sigmoid(x)
         # print("Res8  ", x.size())
         i += nb_params
         # print("Nb_param   ", i)

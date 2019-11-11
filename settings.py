@@ -17,19 +17,19 @@ EPS_END = 0.05
 
 EPS_DECAY = 200
 
-MAX_DEQUE_LANDMARKS = 1000
+MAX_DEQUE_LANDMARKS = 10000
 HALF = False
-MAX_ITER_PERSON = 50
-PATH_WEIGHTS_DISCRIMINATOR = "../weights/blg_small_32_5e-06_5e-05_2_8_small_big_noisy_first_True_512/Discriminator.pt"
-PATH_WEIGHTS_EMBEDDER = "../weights/blg_small_32_5e-06_5e-05_2_8_small_big_noisy_first_True_512/Embedder.pt"
-PATH_WEIGHTS_GENERATOR = "../weights/blg_small_32_5e-06_5e-05_2_8_small_big_noisy_first_True_512/Generator.pt"
+MAX_ITER_PERSON = 5000
+PATH_WEIGHTS_DISCRIMINATOR = "./weights/top_big/Discriminator.pt"
+PATH_WEIGHTS_EMBEDDER = "./weights/top_big/Embedder.pt"
+PATH_WEIGHTS_GENERATOR = "./weights/top_big/Generator.pt"
 
-MODEL = "small"
+MODEL = "big"
 ROOT_DATASET = "dataset/jsonDataset"
 
 
 LAYERS = "big"
-LOAD_PREVIOUS = False
+LOAD_PREVIOUS = True
 LOAD_PREVIOUS_RL = True
 LATENT_SIZE = 512
 BATCH_SIZE = 1

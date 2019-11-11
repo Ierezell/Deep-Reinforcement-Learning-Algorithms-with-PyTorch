@@ -9,6 +9,8 @@ from agents.Base_Agent import Base_Agent
 from exploration_strategies.Epsilon_Greedy_Exploration import Epsilon_Greedy_Exploration
 from utilities.data_structures.Replay_Buffer import Replay_Buffer
 
+from policies import Policy
+
 
 class DQN(Base_Agent):
     """A deep Q learning agent"""
@@ -18,8 +20,8 @@ class DQN(Base_Agent):
         Base_Agent.__init__(self, config)
         self.memory = Replay_Buffer(
             self.hyperparameters["buffer_size"], self.hyperparameters["batch_size"], config.seed)
-        self.q_network_local = self.create_NN(
-            input_dim=self.state_size, output_dim=self.action_size)
+        self.q_network_local = Policy(
+            self.state_size, self.action_size).to("cuda")
         self.q_network_optimizer = optim.Adam(self.q_network_local.parameters(),
                                               lr=self.hyperparameters["learning_rate"], eps=1e-4)
         self.exploration_strategy = Epsilon_Greedy_Exploration(config)
